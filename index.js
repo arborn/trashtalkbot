@@ -32,10 +32,10 @@ async function generateTrashTalk(phrase, bottype) {
 export function configureBot(bot) {
 
   let bottype = 'robot'
-  if (bot.username().includes("1")) {
+  if (bot.username().includes("0")) {
     bottype = 'pirate'
   }
-  if (bot.username().includes("2")) {
+  if (bot.username().includes("1")) {
     bottype = 'oldtimey'
   }
 
