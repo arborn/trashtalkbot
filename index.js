@@ -4,7 +4,7 @@ import axios from "axios";
 const STEAMSHIP_ENDPOINT = "https://patspringleaf.steamship.run/arborn_trash_talk_bot-241/arborn_trash_talk_bot-241/generate"
 const STEAMSHIP_API_KEY = "API Key copied from your Steamship account"
 
-async function generateTrashTalk(phrase: string): Promise<string | null> {
+async function generateTrashTalk(phrase) {
     try {
         const resp = await axios.post(
             STEAMSHIP_ENDPOINT,
@@ -12,7 +12,7 @@ async function generateTrashTalk(phrase: string): Promise<string | null> {
             {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${6214078F-AEE0-4771-BCF1-BCEA8F4FE1E3}`
+                    'Authorization': `Bearer 6214078F-AEE0-4771-BCF1-BCEA8F4FE1E3`
                 }
             })
         if (resp.data["response"]) {
@@ -29,7 +29,7 @@ async function generateTrashTalk(phrase: string): Promise<string | null> {
 /**
  * This bot will trash talk back to the player
  */
-export function configureBot(bot: RGBot) {
+export function configureBot(bot) {
 
     // When a system message is printed, such as a player getting
     // a flag, as long as it mentions the flag, create some trash talk
@@ -49,7 +49,7 @@ export function configureBot(bot: RGBot) {
     // generate some trash talk
     // TODO: You can improve this by adding some code to only trash
     //       talk to enemy teams!
-    bot.on('chat', async (username: string, message: string) => {
+    bot.on('chat', async (username, message) => {
         if (username == bot.username()) return;
         const trashTalk = await generateTrashTalk(message);
         if (trashTalk) {
