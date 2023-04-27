@@ -113,10 +113,10 @@ export function configureBot(bot) {
   })
 
   let bottype = 'robot'
-  if (bot.username().includes("0")) {
+  if (bot.username().includes("Ahoy")) {
     bottype = 'pirate'
   }
-  if (bot.username().includes("1")) {
+  if (bot.username().includes("Olde")) {
     bottype = 'oldtimey'
   }
 
@@ -141,7 +141,7 @@ export function configureBot(bot) {
     bot.on('chat', async (username, message) => {
         if (username == bot.username()) return;
         if (!bot.getOpponentUsernames().includes(username)) return 
-        const trashTalk = await generateTrashTalk(message);
+        const trashTalk = await generateTrashTalk(message, bottype);
         if (trashTalk) {
             bot.chat(trashTalk)
         }
