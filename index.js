@@ -1,14 +1,14 @@
 import { RGBot } from "rg-bot";
 import axios from "axios";
 
-const STEAMSHIP_ENDPOINT = "https://patspringleaf.steamship.run/arborn_trash_talk_bot-241/arborn_trash_talk_bot-241/generate"
+const STEAMSHIP_ENDPOINT = "https://patspringleaf.steamship.run/arborn_trash_talk_bot-a0j/arborn_trash_talk_bot-a0j/generate"
 const STEAMSHIP_API_KEY = "API Key copied from your Steamship account"
 
-async function generateTrashTalk(phrase) {
+async function generateTrashTalk(phrase, bottype) {
     try {
         const resp = await axios.post(
             STEAMSHIP_ENDPOINT,
-            {phrase},
+            {phrase, bottype},
             {
                 headers: {
                     'Content-Type': 'application/json',
@@ -31,13 +31,21 @@ async function generateTrashTalk(phrase) {
  */
 export function configureBot(bot) {
 
+  let bottype = 'robot'
+  if (bot.username().includes("1")) {
+    bottype = 'pirate'
+  }
+  if (bot.username().includes("2")) {
+    bottype = 'oldtimey'
+  }
+
     // When a system message is printed, such as a player getting
     // a flag, as long as it mentions the flag, create some trash talk
     bot.on('message', async (jsonMsg, position, sender, verified) => {
         if (position == "system") {
             const message = jsonMsg.extra[0]['text'];
             if (message.includes("flag")) {
-                const trashTalk = await generateTrashTalk(message);
+                const trashTalk = await generateTrashTalk(message, bottype);
                 if (trashTalk) {
                     bot.chat(trashTalk)
                 }
