@@ -59,6 +59,7 @@ export function configureBot(bot) {
     //       talk to enemy teams!
     bot.on('chat', async (username, message) => {
         if (username == bot.username()) return;
+        if (!bot.getOpponentUsernames().includes(username)) return 
         const trashTalk = await generateTrashTalk(message);
         if (trashTalk) {
             bot.chat(trashTalk)
